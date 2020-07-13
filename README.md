@@ -25,8 +25,6 @@ O sistema está publicado no Heroku, no seguinte endereço:
 
 - https://crud-state.herokuapp.com/
 
-As instruções de uso de cada API são as mesmas descritas acima, alterando-se apenas a URL dos serviços.
-
 
 ---
 ## Configuração de ambiente
