@@ -28,7 +28,6 @@
 </div>
 <div class='col-sm-4'>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Novo</button>
-     <button type="button" ng-click="getAllStates()" class="btn btn-primary" >Listar</button>
 </div>
 <hr>
 
@@ -47,14 +46,14 @@
         <tr ng-repeat="state in states">
             <td>{{state.abbreviation}}</td>
             <td>{{state.name}}</td>
-            <td>{{state.lastUpdate}}</td>
+            <td>{{state.lastUpdate | date:'dd/MM/yyyy HH:mm:ss'}}</td>
             <td>
                 <button type="button" class="btn btn-warning" data-toggle="modal"
-                        data-target="#myModalEditar" ng-click="selecionaCliente(cliente)">Editar</button>
+                        data-target="#myModalEditar" ng-click="selectState(state)">Editar</button>
             </td>
             <td>
                 <button type="button" class="btn btn-danger" data-toggle="modal"
-                        data-target="#myModalExcluir" ng-click="selecionaCliente(cliente)">Excluir</button>
+                        data-target="#myModalExcluir" ng-click="selectState(state)">Excluir</button>
             </td>
         </tr>
         </tbody>
@@ -63,7 +62,8 @@
 
 
 
-Modal
+<!-- Modal -->
+
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
@@ -79,15 +79,15 @@ Modal
                         <label class="control-label col-sm-2">Sigla</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" placeholder="Sigla"
-                            ng-model="newState.abbreviation" maxlength="2">
+                            ng-model="newState.abbreviation" maxlength="2" required="required">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-sm-2">Nome</label>
                         <div class="col-sm-10">
-                            <input type="tel" class="form-control" placeholder="Nome"
-                                   ng-model="newState.name" maxlength="100" >
+                            <input type="text" class="form-control" placeholder="Nome"
+                                   ng-model="newState.name" maxlength="100" required="required">
                         </div>
                     </div>
 
@@ -108,50 +108,44 @@ Modal
     </div>
 </div>
 
-<!-- 
-Modal
+<!-- Modal Editar -->
+
 <div class="modal fade" id="myModalEditar" role="dialog">
     <div class="modal-dialog">
 
-        Modal content
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Editar Cadastro</h4>
             </div>
             <div class="modal-body">
+
                 <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Sigla</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" placeholder="Sigla..."
+                            ng-model="selectedState.abbreviation" maxlength="2" required="required">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="control-label col-sm-2">Nome</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" placeholder="Nome..."
-                            ng-model="clienteSelecionado.nome">
+                                   ng-model="selectedState.name"  maxlength="100" required="required">
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">Telefone</label>
-                        <div class="col-sm-10">
-                            <input type="tel" class="form-control" placeholder="Telefone..."
-                                   ng-model="clienteSelecionado.telefone">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-2">E-mail</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" placeholder="E-mail..."
-                                   ng-model="clienteSelecionado.email">
-                        </div>
-                    </div>
-
+                    
+                    
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-primary"
-                            ng-click="alterarCliente()" data-dismiss="modal">Salvar</button>
+                            ng-click="updateState()" data-dismiss="modal">Salvar</button>
                         </div>
                     </div>
                 </form>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -161,28 +155,29 @@ Modal
     </div>
 </div>
 
-
-Modal
+<!-- Modal Excluir -->
 <div class="modal fade" id="myModalExcluir" role="dialog">
     <div class="modal-dialog">
 
-        Modal content
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Você tem certeza?</h4>
+                <h4 class="modal-title">Excluir</h4>
             </div>
             <div class="modal-body">
-                <h4 style="font-weight: bolder"> Você vai excluir o Cadastro de {{clienteSelecionado.nome}}</h4>
+                <h4 style="font-weight: bolder"> Você tem certeza que deseja excluir o registro?</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"  ng-click="excluirCliente()">Sim</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"  ng-click="deleteState()">Sim</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
             </div>
         </div>
 
     </div>
 </div>
-  -->
+
 </body>
 </html>
+
+	<div ng-init="getAllStates()">
+	</div>

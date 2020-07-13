@@ -7,6 +7,7 @@ module.controller("StateController", ["$scope", "StateService",
 
 	
 	$scope.newState = {};
+	$scope.stateSelected = {};
 	$scope.states = []; 
 	
 	 
@@ -15,6 +16,7 @@ module.controller("StateController", ["$scope", "StateService",
 	   StateService.getAllStates().then(function(response) {
 			  $scope.states = response.data;
 			});
+	   $scope.newState = {};
 		
 //			$http.get(url, config).then(function(response) {
 //
@@ -32,54 +34,76 @@ module.controller("StateController", ["$scope", "StateService",
 		
 	}
    
-   $scope.salvar = function () {
+   $scope.save = function () {
+	   
 	   
 	   $scope.states.push($scope.newState);
 	   
-	   StateService.salvar($scope.newState).then(function (response) {
+	   StateService.save($scope.newState).then(function (response) {
 
 		   if (response.data)
 				console.log(response.data);
-				$scope.newState.id = response.data.id;
-				$scope.newState.lastUpdate = response.data.lastUpdate;
+//				$scope.newState.id = response.data.id;
+//				$scope.newState.abbreviation = response.data.abbreviation;
+//				$scope.newState.name = response.data.name;
+//				$scope.newState.lastUpdate = response.data.lastUpdate;
+//				
+//				$scope.msg = "Post Data Submitted Successfully!";
 				
-				$scope.msg = "Post Data Submitted Successfully!";
+				StateService.getAllStates().then(function(response) {
+					  $scope.states = response.data;
+					});
+			   $scope.newState = {};
 
 			}, function (response) {
 				console.log(response);
 			});
-		
-		$scope.newState = {};
    };
    
-   $scope.selecionaCliente = function (cliente) {
-        $scope.clienteSelecionado = cliente;
+   $scope.updateState = function () {
+	   
+	   
+	   StateService.update($scope.selectedState).then(function (response) {
+
+		   if (response.data)
+				console.log(response.data);
+//				$scope.newState.id = response.data.id;
+//				$scope.newState.abbreviation = response.data.abbreviation;
+//				$scope.newState.name = response.data.name;
+//				$scope.newState.lastUpdate = response.data.lastUpdate;
+//				
+//				$scope.msg = "Post Data Submitted Successfully!";
+				
+				StateService.getAllStates().then(function(response) {
+					  $scope.states = response.data;
+					});
+
+			}, function (response) {
+				console.log(response);
+			});
+   };
+   
+   $scope.deleteState = function () {
+	   
+	   $scope.states.splice($scope.states.indexOf($scope.selectedState), 1);
+	   
+	   StateService.delete($scope.selectedState.id).then(function (response) {
+
+		   if (response.data)
+				console.log(response.data);
+				
+			   $scope.selectedState = {};
+
+			}, function (response) {
+				console.log(response);
+			});
+        
+   };
+   
+  
+   $scope.selectState = function (state) {
+        $scope.selectedState = state;
    };
    
    
-   //--------------------------------------------------
-	
-  $scope.showTime = function(){
-    var time = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss Z');
-    $scope.welcome = "Time = " + time;    
-  }
-  
-  $scope.saveRecord = function () {
-	  
-	  if ($scope.newStudent.id == null) {
-		  $scope.newStudent.id = empid++;
-		  $scope.students.push($scope.newStudent);
-	  } else {
-		  for (i in $scope.students) {
-			  if ($scope.students[i].id == $scope.newStudent.id) {
-				  $scope.students[i] = $scope.newStudent;
-			  }
-	   
-		  }
-	  }
-	   
-  $scope.newStudent = {};
-   
-  }
-  
 }]);
