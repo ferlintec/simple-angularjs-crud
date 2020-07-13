@@ -36,6 +36,11 @@ public class State implements Serializable{
 		
 	}
 	
+	public State(String abbreviation, String name) {
+		this.abbreviation = abbreviation;
+		this.name = name;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

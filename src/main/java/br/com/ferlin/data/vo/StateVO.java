@@ -15,6 +15,11 @@ public class StateVO implements Serializable{
 	
 	public StateVO() {
 	}
+	
+	public StateVO(String abbreviation, String name) {
+		this.abbreviation = abbreviation;
+		this.name = name;
+	}
 
 	public Integer getId() {
 		return id;
