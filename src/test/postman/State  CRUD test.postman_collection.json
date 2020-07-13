@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "52e3f1f8-b125-4297-85b2-ea4f658704fa",
+		"name": "State  CRUD test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Insert new State SC",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json; charset=UTF-8"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"abbreviation\": \"SC\",\n    \"name\": \"Santa Catarina\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/state",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"state"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Insert new State RS",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \t\"Rio Grande do Sul\",\n    \"abbreviation\":    \"RS\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/state",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"state"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List States",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/state",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"state"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get State by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=UTF-8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/state/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"state",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update State",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n        \"id\": 1,\n        \"abbreviation\": \"AM\",\n        \"name\": \"Amazonas\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/state",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"state"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete State",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/state/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"state",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "70098267-e350-4935-8ac9-77fc6a2d7de9",
+			"key": "baseurl",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
