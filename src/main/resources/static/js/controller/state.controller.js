@@ -2,8 +2,8 @@
 var module = angular.module('StateController', []);
 
 
-module.controller("StateController", ["$scope", "StateService",
-    function($scope, StateService) {
+module.controller("StateController", ["$scope", "$timeout", "StateService",
+    function($scope, $timeout, StateService) {
 
 	
 	$scope.newState = {};
@@ -18,45 +18,34 @@ module.controller("StateController", ["$scope", "StateService",
 			});
 	   $scope.newState = {};
 		
-//			$http.get(url, config).then(function(response) {
-//
-//				if (response.data.status == "Done") {
-//					$scope.allcustomers = response.data;
-//					$scope.showAllCustomers = true;
-//
-//				} else {
-//					$scope.getResultMessage = "get All Customers Data Error!";
-//				}
-//
-//			}, function(response) {
-//				$scope.getResultMessage = "Fail!";
-//			});
-		
 	}
    
    $scope.save = function () {
 	   
-	   
-	   $scope.states.push($scope.newState);
-	   
 	   StateService.save($scope.newState).then(function (response) {
 
 		   if (response.data)
-				console.log(response.data);
-//				$scope.newState.id = response.data.id;
-//				$scope.newState.abbreviation = response.data.abbreviation;
-//				$scope.newState.name = response.data.name;
-//				$scope.newState.lastUpdate = response.data.lastUpdate;
-//				
-//				$scope.msg = "Post Data Submitted Successfully!";
 				
 				StateService.getAllStates().then(function(response) {
 					  $scope.states = response.data;
 					});
+		   	
+		   	   $scope.states.push(response.data);
+		   
 			   $scope.newState = {};
+			   
+			   $scope.successMessage = "Registro criado com sucesso!";
+               $scope.success = true;
+               $timeout(function () {
+                   $scope.success = false;
+               }, 5000);
 
 			}, function (response) {
-				console.log(response);
+				$scope.errorMessage = "Não foi possível salvar. Preencha todos os dados.";
+	               $scope.error = true;
+	               $timeout(function () {
+	                   $scope.error = false;
+	               }, 5000);
 			});
    };
    
@@ -66,21 +55,30 @@ module.controller("StateController", ["$scope", "StateService",
 	   StateService.update($scope.selectedState).then(function (response) {
 
 		   if (response.data)
-				console.log(response.data);
-//				$scope.newState.id = response.data.id;
-//				$scope.newState.abbreviation = response.data.abbreviation;
-//				$scope.newState.name = response.data.name;
-//				$scope.newState.lastUpdate = response.data.lastUpdate;
-//				
-//				$scope.msg = "Post Data Submitted Successfully!";
-				
-				StateService.getAllStates().then(function(response) {
+			   $scope.successMessage = "Registro alterado com sucesso!";
+	           $scope.success = true;
+	           $timeout(function () {
+	               $scope.success = false;
+	           }, 5000);
+	           
+	           StateService.getAllStates().then(function(response) {
 					  $scope.states = response.data;
 					});
 
 			}, function (response) {
-				console.log(response);
+				$scope.errorMessage = "Não foi possível salvar. Preencha todos os dados.";
+               $scope.error = true;
+               $timeout(function () {
+                   $scope.error = false;
+               }, 5000);
+               
+               StateService.getAllStates().then(function(response) {
+ 				  $scope.states = response.data;
+ 				});
+               
 			});
+	   
+		   
    };
    
    $scope.deleteState = function () {
@@ -90,12 +88,20 @@ module.controller("StateController", ["$scope", "StateService",
 	   StateService.delete($scope.selectedState.id).then(function (response) {
 
 		   if (response.data)
-				console.log(response.data);
-				
 			   $scope.selectedState = {};
+			   
+			   $scope.successMessage = "Registro excluído com sucesso!";
+	           $scope.success = true;
+	           $timeout(function () {
+	               $scope.success = false;
+	           }, 5000);
 
 			}, function (response) {
-				console.log(response);
+				$scope.errorMessage = "Não foi possível excluir o registro. Entre em contato com o suporte.";
+	               $scope.error = true;
+	               $timeout(function () {
+	                   $scope.error = false;
+	               }, 5000);
 			});
         
    };
