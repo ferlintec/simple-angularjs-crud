@@ -9,7 +9,7 @@
   </parent>
   
   <groupId>br.com.ferlintec</groupId>
-  <artifactId>simian-dna-verification</artifactId>
+  <artifactId>simple-state-crud</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
     
